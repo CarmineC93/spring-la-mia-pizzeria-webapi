@@ -23,16 +23,15 @@ public class PizzaRestController {
 
     // lista di tutte le pizze
     @GetMapping
-    public List<Pizza> index() {
+/*    public List<Pizza> index() {
         return pizzaService.getAllPizzas();
-    }
-
-    /*    public List<Pizza> list(@RequestParam(name = "q") Optional<String> search) {
+    }*/
+   public List<Pizza> index(@RequestParam(name = "q") Optional<String> search) {
         if (search.isPresent()) {
             return pizzaService.getFilteredPizzas(search.get());
         }
         return pizzaService.getAllPizzas();
-    }*/
+    }
 
     // singola pizza
     @GetMapping("/{id}")

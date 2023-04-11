@@ -34,9 +34,9 @@ public class Pizza {
     private List<SpecialOffer> specialOffers;
 
     
-    @ManyToOne
+/*    @ManyToOne
     @JsonIgnore
-    private User user;
+    private User user;*/
 
     @ManyToMany
     @JoinTable(
@@ -54,13 +54,13 @@ public class Pizza {
     //GETTER & SETTER
 
 
-    public User getUser() {
+/*    public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
-    }
+    }*/
 
     public List<Ingredient> getIngredients() {
         return ingredients;

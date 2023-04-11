@@ -32,18 +32,18 @@ public class User {
     private Set<Role> roles;
 
 
-    @OneToMany(mappedBy = "user")
-    private List<Pizza> pizzas;
+/*    @OneToMany(mappedBy = "user")
+    private List<Pizza> pizzas;*/
 
     //GETTER & SETTER
 
-    public List<Pizza> getPizzas() {
+/*    public List<Pizza> getPizzas() {
         return pizzas;
     }
 
     public void setPizzas(List<Pizza> pizzas) {
         this.pizzas = pizzas;
-    }
+    }*/
 
     public Set<Role> getRoles() {
         return roles;
