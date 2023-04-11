@@ -1,5 +1,6 @@
 package org.excercise.pizzeria.springlamiapizzeriacrud.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -32,7 +33,9 @@ public class Pizza {
     @OneToMany(mappedBy = "pizza")
     private List<SpecialOffer> specialOffers;
 
+    
     @ManyToOne
+    @JsonIgnore
     private User user;
 
     @ManyToMany

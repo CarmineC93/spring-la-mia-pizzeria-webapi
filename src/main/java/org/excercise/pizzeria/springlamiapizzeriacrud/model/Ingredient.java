@@ -1,5 +1,6 @@
 package org.excercise.pizzeria.springlamiapizzeriacrud.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
@@ -21,6 +22,7 @@ public class Ingredient {
     private String description;
 
     //RELATIONS
+    @JsonIgnore
     @ManyToMany(mappedBy = "ingredients")
     private List<Pizza> pizzas;
 

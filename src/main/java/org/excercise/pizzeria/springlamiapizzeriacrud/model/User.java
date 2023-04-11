@@ -1,6 +1,7 @@
 package org.excercise.pizzeria.springlamiapizzeriacrud.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -29,6 +30,7 @@ public class User {
     //RELATIONS
     @ManyToMany(fetch = FetchType.EAGER) //usiamo fetch in modo che appena venga selezionato un utente devono vengano subito selezionati i suoi ruoli
     private Set<Role> roles;
+
 
     @OneToMany(mappedBy = "user")
     private List<Pizza> pizzas;

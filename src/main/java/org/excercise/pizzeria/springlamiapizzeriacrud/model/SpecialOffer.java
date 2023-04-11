@@ -1,5 +1,6 @@
 package org.excercise.pizzeria.springlamiapizzeriacrud.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
@@ -20,6 +21,7 @@ public class SpecialOffer {
     private String title;
 
     //RELATION
+    @JsonIgnore
     @ManyToOne
     @NotNull
     private Pizza pizza;
