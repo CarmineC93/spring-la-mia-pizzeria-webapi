@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <th:block  th:replace="~{fragments/link :: link}"></th:block>
+  <title>Create Special Offer</title>
+</head>
+<body>
+<th:block th:replace="~{fragments/navbar :: navbar('pizzas', '', false)}"></th:block>
+
+<div class="container" th:with="pizza = ${specialOffer.pizza}">
+  <h1>
+    <span>Create Special Offer</span>
+    <span th:if="${pizza != null}" th:text="|New offer for ${pizza.name}|"></span>
+  </h1>
+  <form
+          id="specialOffer-form"
+          method="post"
+          class="row gy-3"
+          th:action="@{/special-offers/create}"
+          th:object="${specialOffer}"
+  >
+
+    <input type="hidden" th:field="*{pizza}">
+
+    <div class="col-6">
+      <label class="form-label" for="offerName">Offer name*</label>
+      <input type="text" id="offerName" class="form-control" th:field="*{title}"
+             th:errorClass="is-invalid">
+      <div class="invalid-feedback" th:if="${#fields.hasErrors('title')}">
+        <ul>
+          <li th:each="err : ${#fields.errors('title')}" th:text="${err}"></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-6">
+      <label class="form-label" for="start-date">Start date</label>
+      <input type="date" id="start-date" class="form-control" th:field="*{startDate}"
+             th:errorClass="is-invalid">
+      <div class="invalid-feedback" th:if="${#fields.hasErrors('startDate')}">
+        <ul>
+          <li th:each="err : ${#fields.errors('startDate')}" th:text="${err}"></li>
+        </ul>
+      </div>
+    </div>
+
+
+    <div class="col-6">
+      <label class="form-label" for="end-date">End Date Offer</label>
+      <input type="date" id="end-date" class="form-control" th:field="*{endDate}"
+             th:errorClass="is-invalid">
+      <div class="invalid-feedback" th:if="${#fields.hasErrors('endDate')}">
+        <ul>
+          <li th:each="err : ${#fields.errors('endDate')}" th:text="${err}"></li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-12">
+      <button type="submit" class="btn btn-success">Save</button>
+      <a class="btn btn-primary" th:href="@{|/pizzas/${specialOffer.pizza.id}|}">Cancel</a>
+    </div>
+  </form>
+</div>
+</body>
+</html>

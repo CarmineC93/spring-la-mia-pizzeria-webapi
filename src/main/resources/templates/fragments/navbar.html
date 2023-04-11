@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<th:block th:fragment="navbar(current, keyword, showSearch)">
+  <nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" th:href="@{/}">Home</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/pizzas} " th:classAppend="${current == 'pizzas'} ? active : not-active">Pizzas</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/ingredients}"
+               sec:authorize="hasAuthority('ADMIN')"
+               th:classAppend="${current == 'ingredients'} ? active : not-active">Ingredients</a>
+          </li>
+
+        </ul>
+
+
+        <!--con il form farà una richiesta get a rotta pizzas, assocerà l'attribute name e ricaricherà la pagina-->
+        <form class="d-flex"
+              th:if="${showSearch}"
+              role="search"
+              method="get"
+              th:action="@{/pizzas}"
+        >
+          <!--colleghiamo il parametro del fragment all'attribute th:value dell'imput che si collegherà al model-->
+          <input name="q" th:value="${keyword}" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+
+        <div class="ms-3">
+          <span sec:authentication="name"></span>
+          <span sec:authentication=""></span>
+
+          <a class="btn btn-danger" th:href="@{/logout}">Logout</a>
+        </div>
+
+      </div>
+    </div>
+  </nav>
+</th:block>
+</body>
+</html>

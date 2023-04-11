@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+
+    <div th:replace="~{fragments/link :: link}"></div>
+
+    <title>Pizzas</title>
+</head>
+
+<body>
+<header th:replace="~{fragments/navbar :: navbar('pizzas', ${keyword}, true)}"></header>
+
+<h1>Pizzas <a th:href="@{/pizzas/create}" class="btn btn-success " title="add pizza" sec:authorize="hasAuthority('ADMIN')">
+    Add New Pizza
+    </a>
+</h1>
+
+<div th:replace="~{fragments/message :: message}" ></div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Actions</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:if="${!list.isEmpty()}" th:each="pizza : ${list}" th:object="${pizza}">
+                    <td th:text="*{id}"></td>
+                    <td th:text="*{name}"></td>
+                    <td th:text="*{description}"></td>
+                    <td th:text="*{price}"></td>
+                    <td>
+                        <a th:href="@{|/pizzas/*{id}|}">Detail</a>
+                        <a th:href="@{|/pizzas/edit/*{id}|}" sec:authorize="hasAuthority('ADMIN')">Modify</a>
+                        <a th:href="@{|/pizzas/delete/*{id}|}" sec:authorize="hasAuthority('ADMIN')">Delete</a>
+
+                    </td>
+
+                </tr>
+                <tr th:if="${list.isEmpty()}">
+                    <td colspan="4">Sorry, there aren't pizzas available</td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

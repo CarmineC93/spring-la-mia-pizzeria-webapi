@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+  <div th:replace="~{fragments/link :: link}"></div>
+
+  <title>Pizza Detail</title>
+</head>
+<body>
+
+<header th:replace="~{fragments/navbar :: navbar('pizzas', '', false)}"></header>
+
+<div th:replace="~{fragments/message :: message}" ></div>
+
+
+<div class="container" th:object="${pizza}">
+    <h1 th:text="*{name}">Pizzas</h1>
+    <hr/>
+    <div>
+        <dl>
+            <dt>Name:</dt>
+            <dd th:text="*{name}"></dd>
+
+            <th:block th:unless="${#strings.isEmpty(pizza.description)}">
+                <dt>Description:</dt>
+                <dd th:text="*{description}"></dd>
+            </th:block>
+
+            <dt>Price: </dt>
+            <dd th:text="|*{price} €|"></dd>
+
+            <dt>Ingredients: </dt>
+            <dd><span th:each="ingredient : *{ingredients}" th:text="${ingredient.name}" class="me-1"></span></dd>
+
+            <dt>Creator of this pizza: </dt>
+            <dd>
+
+                <span th:text="*{user.firstName}" class="me-1"></span>
+                <span th:text="*{user.lastName}" class="me-1"></span>
+
+            </dd>
+
+        </dl>
+    </div>
+
+
+    <h6>Special Offer</h6>
+    <a th:href="@{/special-offers/create(pizzaId=${pizza.id})}"
+        class="btn btn-success" sec:authorize="hasAuthority('ADMIN')">Add new Offer</a>
+
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Name offer</th>
+            <th scope="col">Start date</th>
+            <th scope="col">End date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="offer : *{specialOffers}" th:object="${offer}">
+            <td th:text="*{title}"></td>
+            <td th:text="${#temporals.format(offer.startDate, 'dd/MM/yyyy')}"></td>
+            <td th:text="${#temporals.format(offer.endDate, 'dd/MM/yyyy')}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <div>
+        <a th:href="@{/pizzas}"> Back to pizzas menu </a>
+    </div>
+
+
+</div>
+
+</body>
+</html>
