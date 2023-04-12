@@ -21,7 +21,6 @@ public class SpecialOffer {
     private String title;
 
     //RELATION
-
     @JsonIgnore
     @ManyToOne
     @NotNull
